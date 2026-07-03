@@ -1,6 +1,6 @@
 {
-  "name": "",
-  "description": "",
+  "name": "Alif",
+  "description": "Learn Arabic with AI",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }
