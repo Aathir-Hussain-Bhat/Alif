@@ -21,6 +21,9 @@ interface AppDao {
     @Query("SELECT * FROM lessons")
     fun getAllLessons(): Flow<List<Lesson>>
 
+    @Query("DELETE FROM lessons")
+    suspend fun clearLessons()
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertLessons(lessons: List<Lesson>)
 

@@ -27,16 +27,23 @@ fun LearnScreen(viewModel: MainViewModel, navController: NavController) {
     val lessons by viewModel.lessons.collectAsState()
     val progress by viewModel.progress.collectAsState()
 
+    val user by viewModel.user.collectAsState()
+    val unitTitle = when (user?.level) {
+        "Intermediate" -> "Vowels & Connecting"
+        "Advanced" -> "Roots & Grammar"
+        else -> "Arabic Alphabet"
+    }
+
     Column(modifier = Modifier.fillMaxSize().padding(16.dp)) {
         Text("Unit 1", color = MaterialTheme.colorScheme.primary)
-        Text("Arabic Alphabet", style = MaterialTheme.typography.headlineMedium, fontWeight = FontWeight.Bold)
+        Text(unitTitle, style = MaterialTheme.typography.headlineMedium, fontWeight = FontWeight.Bold)
         Spacer(modifier = Modifier.height(24.dp))
         
         LazyColumn(verticalArrangement = Arrangement.spacedBy(16.dp)) {
             items(lessons) { lesson ->
                 val isCompleted = progress.any { it.lessonId == lesson.id && it.completed }
                 LessonCard(lesson, isCompleted) {
-                    navController.navigate(Practice)
+                    navController.navigate(Practice(lesson.id))
                 }
             }
         }

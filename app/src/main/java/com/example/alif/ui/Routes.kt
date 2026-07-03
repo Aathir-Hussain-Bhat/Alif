@@ -15,7 +15,7 @@ object Main
 object Learn
 
 @Serializable
-object Practice
+data class Practice(val lessonId: String)
 
 @Serializable
 data class AiTutor(val topic: String = "General")

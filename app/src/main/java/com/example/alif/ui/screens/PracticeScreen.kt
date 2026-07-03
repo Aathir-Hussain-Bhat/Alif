@@ -16,9 +16,16 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.alif.ui.AiTutor
 
+import com.example.alif.ui.MainViewModel
+
 @Composable
-fun PracticeScreen(navController: NavController) {
+fun PracticeScreen(lessonId: String, viewModel: MainViewModel, navController: NavController) {
+    val lessons by viewModel.lessons.collectAsState()
+    val lesson = lessons.find { it.id == lessonId }
+    
     var mode by remember { mutableStateOf("Listen") }
+
+    if (lesson == null) return
 
     Column(
         modifier = Modifier
@@ -47,11 +54,11 @@ fun PracticeScreen(navController: NavController) {
                 .background(MaterialTheme.colorScheme.primaryContainer, RoundedCornerShape(32.dp)),
             contentAlignment = Alignment.Center
         ) {
-            Text("ا", fontSize = 120.sp, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.primary)
+            Text(lesson.arabicChar, fontSize = 120.sp, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.primary)
         }
 
         Spacer(modifier = Modifier.height(24.dp))
-        Text("Alif", fontSize = 32.sp, fontWeight = FontWeight.Bold)
+        Text(lesson.transliteration, fontSize = 32.sp, fontWeight = FontWeight.Bold)
 
         Spacer(modifier = Modifier.weight(1f))
 
@@ -79,7 +86,7 @@ fun PracticeScreen(navController: NavController) {
 
         Spacer(modifier = Modifier.height(32.dp))
         Button(
-            onClick = { navController.navigate(AiTutor("the letter ا (Alif)")) },
+            onClick = { navController.navigate(AiTutor("the letter ${lesson.arabicChar} (${lesson.transliteration})")) },
             modifier = Modifier.fillMaxWidth(),
             shape = RoundedCornerShape(16.dp),
             colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.secondaryContainer)
@@ -89,7 +96,10 @@ fun PracticeScreen(navController: NavController) {
         
         Spacer(modifier = Modifier.height(16.dp))
         Button(
-            onClick = { navController.popBackStack() },
+            onClick = { 
+                viewModel.completeLesson(lesson.id)
+                navController.popBackStack() 
+            },
             modifier = Modifier.fillMaxWidth(),
             shape = RoundedCornerShape(16.dp)
         ) {

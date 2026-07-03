@@ -70,8 +70,13 @@ fun HomeScreen(viewModel: MainViewModel, navController: NavController) {
                 Column(modifier = Modifier.padding(24.dp)) {
                     Text("Continue Lesson", style = MaterialTheme.typography.titleMedium)
                     Spacer(modifier = Modifier.height(8.dp))
+                    val unitTitle = when (user?.level) {
+                        "Intermediate" -> "Unit 1: Vowels & Connecting"
+                        "Advanced" -> "Unit 1: Roots & Grammar"
+                        else -> "Unit 1: Arabic Alphabet"
+                    }
                     Text(
-                        "Unit 1: Arabic Alphabet",
+                        unitTitle,
                         style = MaterialTheme.typography.headlineSmall,
                         fontWeight = FontWeight.Bold
                     )

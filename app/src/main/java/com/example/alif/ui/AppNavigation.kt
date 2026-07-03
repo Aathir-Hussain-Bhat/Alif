@@ -73,8 +73,9 @@ fun AppNavigation(viewModel: MainViewModel) {
                 LearnScreen(viewModel, navController)
             }
             
-            composable<Practice> {
-                PracticeScreen(navController)
+            composable<Practice> { backStackEntry ->
+                val practice = backStackEntry.toRoute<Practice>()
+                PracticeScreen(lessonId = practice.lessonId, viewModel = viewModel, navController = navController)
             }
 
             composable<AiTutor> { backStackEntry ->

@@ -9,6 +9,8 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
+import kotlinx.coroutines.flow.first
+
 class MainViewModel(private val repository: AppRepository) : ViewModel() {
 
     val user: StateFlow<User?> = repository.currentUser
@@ -34,7 +36,9 @@ class MainViewModel(private val repository: AppRepository) : ViewModel() {
 
     init {
         viewModelScope.launch {
-            repository.populateInitialData()
+            if (repository.allLessons.first().isEmpty()) {
+                repository.populateInitialData()
+            }
         }
     }
 
@@ -47,6 +51,7 @@ class MainViewModel(private val repository: AppRepository) : ViewModel() {
                     preferredLanguage = lang
                 )
             )
+            repository.populateInitialData(level)
         }
     }
 
