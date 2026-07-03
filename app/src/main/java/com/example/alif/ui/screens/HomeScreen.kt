@@ -142,9 +142,19 @@ fun HomeScreen(viewModel: MainViewModel, navController: NavController) {
             Spacer(modifier = Modifier.height(8.dp))
             Card(modifier = Modifier.fillMaxWidth(), shape = RoundedCornerShape(16.dp)) {
                 Column(modifier = Modifier.padding(16.dp)) {
-                    Text("Unit 1: Alphabet", fontWeight = FontWeight.Bold)
-                    LinearProgressIndicator(progress = { 0.25f }, modifier = Modifier.fillMaxWidth().padding(vertical = 8.dp))
-                    Text("1 of 4 completed", style = MaterialTheme.typography.bodySmall)
+                    val unitTitle = when (user?.level) {
+                        "Intermediate" -> "Unit 1: Vowels & Connecting"
+                        "Advanced" -> "Unit 1: Roots & Grammar"
+                        else -> "Unit 1: Alphabet"
+                    }
+                    Text(unitTitle, fontWeight = FontWeight.Bold)
+                    val progress by viewModel.progress.collectAsState()
+                    val lessons by viewModel.lessons.collectAsState()
+                    val totalLessons = lessons.size.coerceAtLeast(1)
+                    val completedLessons = progress.count { it.completed }.coerceAtMost(totalLessons)
+                    val progressFloat = completedLessons.toFloat() / totalLessons.toFloat()
+                    LinearProgressIndicator(progress = { progressFloat }, modifier = Modifier.fillMaxWidth().padding(vertical = 8.dp))
+                    Text("$completedLessons of $totalLessons completed", style = MaterialTheme.typography.bodySmall)
                 }
             }
         }
