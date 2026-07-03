@@ -79,12 +79,12 @@ fun PracticeScreen(navController: NavController) {
 
         Spacer(modifier = Modifier.height(32.dp))
         Button(
-            onClick = { navController.navigate(AiTutor) },
+            onClick = { navController.navigate(AiTutor("the letter ا (Alif)")) },
             modifier = Modifier.fillMaxWidth(),
             shape = RoundedCornerShape(16.dp),
-            colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.secondary)
+            colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.secondaryContainer)
         ) {
-            Text("Ask AI about this lesson", modifier = Modifier.padding(8.dp), color = MaterialTheme.colorScheme.onSecondary)
+            Text("🤖 Need help? Ask Alif AI", modifier = Modifier.padding(8.dp), color = MaterialTheme.colorScheme.onSecondaryContainer)
         }
         
         Spacer(modifier = Modifier.height(16.dp))

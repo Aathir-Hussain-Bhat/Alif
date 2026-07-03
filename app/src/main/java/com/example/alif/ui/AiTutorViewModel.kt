@@ -19,10 +19,19 @@ class AiTutorViewModel : ViewModel() {
     private val _isLoading = MutableStateFlow(false)
     val isLoading: StateFlow<Boolean> = _isLoading.asStateFlow()
 
-    init {
-        _messages.value = listOf(
-            ChatMessage("Hello! I am your AI Arabic Tutor. How can I help you today?", false)
-        )
+    private var isInitialized = false
+
+    fun initTopic(topic: String) {
+        if (isInitialized) return
+        isInitialized = true
+        
+        val initialText = if (topic == "General") {
+            "Hello! I am your AI Arabic Tutor. How can I help you today?"
+        } else {
+            "You're studying $topic. What would you like help with?"
+        }
+        
+        _messages.value = listOf(ChatMessage(initialText, false))
     }
 
     fun sendMessage(text: String) {

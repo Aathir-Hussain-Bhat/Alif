@@ -16,8 +16,15 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.alif.ai.AiTutorViewModel
 import com.example.alif.ai.ChatMessage
 
+import androidx.compose.foundation.horizontalScroll
+import androidx.compose.foundation.rememberScrollState
+
 @Composable
-fun AiTutorScreen(viewModel: AiTutorViewModel = viewModel()) {
+fun AiTutorScreen(topic: String, viewModel: AiTutorViewModel = viewModel()) {
+    LaunchedEffect(topic) {
+        viewModel.initTopic(topic)
+    }
+
     val messages by viewModel.messages.collectAsState()
     val isLoading by viewModel.isLoading.collectAsState()
     var inputText by remember { mutableStateOf("") }
@@ -47,10 +54,15 @@ fun AiTutorScreen(viewModel: AiTutorViewModel = viewModel()) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
+                .horizontalScroll(rememberScrollState())
                 .padding(8.dp),
             horizontalArrangement = Arrangement.spacedBy(8.dp)
         ) {
-            val suggestions = listOf("What does 'سلام' mean?", "Explain Alif", "Give me a quiz")
+            val suggestions = if (topic == "General") {
+                listOf("What does 'سلام' mean?", "Explain Alif", "Give me a quiz")
+            } else {
+                listOf("Explain this letter", "Give more examples", "Test me", "Hear pronunciation", "Compare with similar letters")
+            }
             suggestions.forEach { s ->
                 SuggestionChip(
                     onClick = { viewModel.sendMessage(s) },

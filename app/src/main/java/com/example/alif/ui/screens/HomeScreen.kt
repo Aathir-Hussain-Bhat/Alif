@@ -68,7 +68,7 @@ fun HomeScreen(viewModel: MainViewModel, navController: NavController) {
                 colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.primaryContainer)
             ) {
                 Column(modifier = Modifier.padding(24.dp)) {
-                    Text("Today's Lesson", style = MaterialTheme.typography.titleMedium)
+                    Text("Continue Lesson", style = MaterialTheme.typography.titleMedium)
                     Spacer(modifier = Modifier.height(8.dp))
                     Text(
                         "Unit 1: Arabic Alphabet",
@@ -110,6 +110,36 @@ fun HomeScreen(viewModel: MainViewModel, navController: NavController) {
                         Text("Salam", fontWeight = FontWeight.Bold, fontSize = 20.sp)
                         Text("Peace")
                     }
+                }
+            }
+        }
+
+        item {
+            Text("Daily Challenge", style = MaterialTheme.typography.titleMedium)
+            Spacer(modifier = Modifier.height(8.dp))
+            Card(modifier = Modifier.fillMaxWidth(), shape = RoundedCornerShape(16.dp)) {
+                Row(
+                    modifier = Modifier.padding(16.dp),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Column {
+                        Text("Complete 3 Lessons", fontWeight = FontWeight.Bold)
+                        Text("Reward: +50 XP", color = MaterialTheme.colorScheme.secondary)
+                    }
+                    CircularProgressIndicator(progress = { 0.33f }, modifier = Modifier.size(40.dp))
+                }
+            }
+        }
+
+        item {
+            Text("Recent Progress", style = MaterialTheme.typography.titleMedium)
+            Spacer(modifier = Modifier.height(8.dp))
+            Card(modifier = Modifier.fillMaxWidth(), shape = RoundedCornerShape(16.dp)) {
+                Column(modifier = Modifier.padding(16.dp)) {
+                    Text("Unit 1: Alphabet", fontWeight = FontWeight.Bold)
+                    LinearProgressIndicator(progress = { 0.25f }, modifier = Modifier.fillMaxWidth().padding(vertical = 8.dp))
+                    Text("1 of 4 completed", style = MaterialTheme.typography.bodySmall)
                 }
             }
         }

@@ -43,7 +43,7 @@ fun SplashScreen(onNavigateNext: () -> Unit) {
             )
             Spacer(modifier = Modifier.height(8.dp))
             Text(
-                text = "Learn Arabic with AI",
+                text = "Your journey to Arabic begins here.",
                 fontSize = 16.sp,
                 color = Color.White.copy(alpha = 0.8f)
             )

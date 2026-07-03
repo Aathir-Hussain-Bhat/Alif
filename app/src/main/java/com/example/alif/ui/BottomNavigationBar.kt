@@ -21,7 +21,6 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 sealed class BottomNavItem(val route: Any, val icon: ImageVector, val label: String) {
     object HomeRoute : BottomNavItem(Main, Icons.Default.Home, "Home")
     object LearnRoute : BottomNavItem(Learn, Icons.AutoMirrored.Filled.List, "Learn")
-    object AiRoute : BottomNavItem(AiTutor, Icons.Default.Star, "AI Tutor")
     object ProgressRoute : BottomNavItem(Progress, Icons.Default.PlayArrow, "Progress")
     object ProfileRoute : BottomNavItem(Profile, Icons.Default.Person, "Profile")
 }
@@ -31,7 +30,6 @@ fun BottomNavigationBar(navController: NavController) {
     val items = listOf(
         BottomNavItem.HomeRoute,
         BottomNavItem.LearnRoute,
-        BottomNavItem.AiRoute,
         BottomNavItem.ProgressRoute,
         BottomNavItem.ProfileRoute
     )

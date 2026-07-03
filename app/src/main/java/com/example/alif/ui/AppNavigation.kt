@@ -12,6 +12,8 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.alif.ui.screens.*
 
+import androidx.navigation.toRoute
+
 @Composable
 fun AppNavigation(viewModel: MainViewModel) {
     val navController = rememberNavController()
@@ -75,8 +77,9 @@ fun AppNavigation(viewModel: MainViewModel) {
                 PracticeScreen(navController)
             }
 
-            composable<AiTutor> {
-                AiTutorScreen()
+            composable<AiTutor> { backStackEntry ->
+                val aiTutorRoute = backStackEntry.toRoute<AiTutor>()
+                AiTutorScreen(topic = aiTutorRoute.topic)
             }
             
             composable<Progress> {
