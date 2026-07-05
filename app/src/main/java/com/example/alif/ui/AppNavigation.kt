@@ -46,7 +46,7 @@ fun AppNavigation(viewModel: MainViewModel) {
                                 popUpTo(Splash) { inclusive = true }
                             }
                         } else {
-                            navController.navigate(Onboarding) {
+                            navController.navigate(Welcome) {
                                 popUpTo(Splash) { inclusive = true }
                             }
                         }
@@ -54,12 +54,32 @@ fun AppNavigation(viewModel: MainViewModel) {
                 )
             }
             
+            composable<Welcome> {
+                WelcomeScreen(
+                    onGetStarted = { navController.navigate(Auth) }
+                )
+            }
+
+            composable<Auth> {
+                AuthScreen(
+                    onContinue = { navController.navigate(Onboarding) }
+                )
+            }
+
             composable<Onboarding> {
                 OnboardingScreen(
                     onComplete = { reason, level, dailyGoal, lang ->
                         viewModel.completeOnboarding(reason, level, dailyGoal, lang)
+                        navController.navigate(Plan)
+                    }
+                )
+            }
+
+            composable<Plan> {
+                PlanScreen(
+                    onFinish = {
                         navController.navigate(Main) {
-                            popUpTo(Onboarding) { inclusive = true }
+                            popUpTo(Welcome) { inclusive = true }
                         }
                     }
                 )

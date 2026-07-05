@@ -35,15 +35,34 @@ fun LearnScreen(viewModel: MainViewModel, navController: NavController) {
     }
 
     Column(modifier = Modifier.fillMaxSize().padding(16.dp)) {
-        Text("Unit 1", color = MaterialTheme.colorScheme.primary)
-        Text(unitTitle, style = MaterialTheme.typography.headlineMedium, fontWeight = FontWeight.Bold)
-        Spacer(modifier = Modifier.height(24.dp))
-        
         LazyColumn(verticalArrangement = Arrangement.spacedBy(16.dp)) {
+            item {
+                Text("Unit 1", color = MaterialTheme.colorScheme.primary)
+                Text(unitTitle, style = MaterialTheme.typography.headlineMedium, fontWeight = FontWeight.Bold)
+                Spacer(modifier = Modifier.height(8.dp))
+            }
+            
             items(lessons) { lesson ->
                 val isCompleted = progress.any { it.lessonId == lesson.id && it.completed }
                 LessonCard(lesson, isCompleted) {
                     navController.navigate(Practice(lesson.id))
+                }
+            }
+
+            val upcomingUnits = listOf("Unit 2: Joining Letters", "Unit 3: Basic Words", "Unit 4: Sentences", "Unit 5: Beginner Grammar")
+            items(upcomingUnits) { unit ->
+                Spacer(modifier = Modifier.height(16.dp))
+                Text(unit.substringBefore(":"), color = MaterialTheme.colorScheme.outline)
+                Text(unit.substringAfter(": "), style = MaterialTheme.typography.headlineMedium, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.outline)
+                Spacer(modifier = Modifier.height(8.dp))
+                Card(
+                    modifier = Modifier.fillMaxWidth(),
+                    shape = RoundedCornerShape(16.dp),
+                    colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f))
+                ) {
+                    Box(modifier = Modifier.padding(24.dp), contentAlignment = Alignment.Center) {
+                        Text("Complete previous units to unlock", color = MaterialTheme.colorScheme.onSurfaceVariant)
+                    }
                 }
             }
         }

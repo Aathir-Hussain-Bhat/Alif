@@ -54,10 +54,25 @@ fun ProfileScreen(viewModel: MainViewModel) {
                 }
                 HorizontalDivider(modifier = Modifier.padding(vertical = 8.dp))
                 Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically) {
-                    Text("Notifications")
+                    Text("Language")
+                    Text("${user?.preferredLanguage ?: "English"}")
+                }
+                HorizontalDivider(modifier = Modifier.padding(vertical = 8.dp))
+                Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically) {
+                    Text("Daily Reminder")
                     Switch(checked = true, onCheckedChange = {})
                 }
             }
+        }
+        
+        Spacer(modifier = Modifier.weight(1f))
+        
+        OutlinedButton(
+            onClick = { /* Handle Sign Out */ },
+            modifier = Modifier.fillMaxWidth(),
+            colors = ButtonDefaults.outlinedButtonColors(contentColor = MaterialTheme.colorScheme.error)
+        ) {
+            Text("Sign Out")
         }
     }
 }

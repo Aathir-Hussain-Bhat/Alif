@@ -59,7 +59,7 @@ fun AiTutorScreen(topic: String, viewModel: AiTutorViewModel = viewModel()) {
             horizontalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             val suggestions = if (topic == "General") {
-                listOf("What does 'سلام' mean?", "Explain Alif", "Give me a quiz")
+                listOf("Explain today's lesson", "Test me", "Pronunciation help", "Grammar help", "Vocabulary help")
             } else {
                 listOf("Explain this letter", "Give more examples", "Test me", "Hear pronunciation", "Compare with similar letters")
             }

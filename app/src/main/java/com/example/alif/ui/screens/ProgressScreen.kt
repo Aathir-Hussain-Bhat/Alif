@@ -10,6 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.example.alif.ui.MainViewModel
+import androidx.compose.foundation.background
 
 @Composable
 fun ProgressScreen(viewModel: MainViewModel) {
@@ -41,6 +42,39 @@ fun ProgressScreen(viewModel: MainViewModel) {
                 Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
                     Text("Current Streak")
                     Text("${user?.streak ?: 0} Days", fontWeight = FontWeight.Bold)
+                }
+                HorizontalDivider(modifier = Modifier.padding(vertical = 8.dp))
+                Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
+                    Text("Accuracy")
+                    Text("92%", fontWeight = FontWeight.Bold) // Placeholder for prototype
+                }
+                HorizontalDivider(modifier = Modifier.padding(vertical = 8.dp))
+                Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
+                    Text("Vocabulary Learned")
+                    Text("${progress.count { it.completed } * 2} Words", fontWeight = FontWeight.Bold) // Placeholder logic
+                }
+            }
+        }
+        
+        Text("Weekly Activity", style = MaterialTheme.typography.titleMedium)
+        Card(modifier = Modifier.fillMaxWidth(), shape = RoundedCornerShape(16.dp)) {
+            Row(
+                modifier = Modifier.fillMaxWidth().padding(16.dp),
+                horizontalArrangement = Arrangement.SpaceEvenly
+            ) {
+                listOf("M", "T", "W", "T", "F", "S", "S").forEachIndexed { index, day ->
+                    Column(horizontalAlignment = androidx.compose.ui.Alignment.CenterHorizontally) {
+                        Box(
+                            modifier = Modifier
+                                .size(32.dp)
+                                .background(
+                                    color = if (index < 4) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.surfaceVariant,
+                                    shape = androidx.compose.foundation.shape.CircleShape
+                                )
+                        )
+                        Spacer(modifier = Modifier.height(8.dp))
+                        Text(day, style = MaterialTheme.typography.bodySmall)
+                    }
                 }
             }
         }
